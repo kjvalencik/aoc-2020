@@ -1,0 +1,8 @@
+[package]
+name = "day-06"
+version = "0.1.0"
+authors = ["K.J. Valencik <kj.valencik@agilebits.com>"]
+edition = "2018"
+
+[dependencies]
+aoc-common = { path = "../aoc-common" }
