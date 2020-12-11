@@ -44,7 +44,7 @@ fn part2(input: &[u64]) -> u64 {
 
 fn arrange_adapters(mut input: Vec<u64>) -> Vec<u64> {
 	input.push(0);
-	input.sort();
+	input.sort_unstable();
 	input.push(input[input.len() - 1] + 3);
 	input
 }

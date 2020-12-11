@@ -44,7 +44,7 @@ impl<'a, T: AsRef<str>> AocParse<'a> for T {
 	where
 		F: TryFrom<&'a str>,
 	{
-		parser(self.as_ref(), |s| TryFrom::try_from(s))
+		parser(self.as_ref(), TryFrom::try_from)
 	}
 }
 

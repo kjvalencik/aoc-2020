@@ -1,8 +1,10 @@
 use aoc_common::*;
 
+type LineResult<'a> = Result<(&'a str, Vec<(usize, &'a str)>), Error>;
+
 fn parse_color(input: &str) -> Result<(usize, &str), Error> {
 	let num = input
-		.split(" ")
+		.split(' ')
 		.next()
 		.ok_or_else(|| Error::from("Missing number"))?;
 
@@ -12,7 +14,7 @@ fn parse_color(input: &str) -> Result<(usize, &str), Error> {
 	Ok((num, color))
 }
 
-fn parse_line(input: &str) -> Result<(&str, Vec<(usize, &str)>), Error> {
+fn parse_line(input: &str) -> LineResult {
 	let mut parts = input.trim().split(" bags contain ");
 	let color = parts.next().ok_or_else(|| Error::from("Missing color"))?;
 	let contains = parts
@@ -66,7 +68,7 @@ fn part1(input: &Puzzle) -> usize {
 	let reverse = input.rules.iter().fold(HashMap::new(), |acc, rule| {
 		rule.1.iter().fold(acc, |mut acc, (_, color)| {
 			acc.entry(*color)
-				.or_insert_with(|| HashSet::new())
+				.or_insert_with(HashSet::new)
 				.insert(*rule.0);
 
 			acc

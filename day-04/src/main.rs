@@ -14,7 +14,7 @@ impl FromStr for Height {
 		let height = if s.ends_with("in") {
 			let height = s.trim_end_matches("in").parse()?;
 
-			if height < 59 || height > 76 {
+			if !(59..=76).contains(&height) {
 				return Err("Invalid Height".into());
 			}
 
@@ -22,7 +22,7 @@ impl FromStr for Height {
 		} else if s.ends_with("cm") {
 			let height = s.trim_end_matches("cm").parse()?;
 
-			if height < 150 || height > 193 {
+			if !(150..=193).contains(&height) {
 				return Err("Invalid Height".into());
 			}
 
@@ -105,7 +105,7 @@ impl FromStr for Color {
 		let is_valid_hex = s
 			.chars()
 			.skip(1)
-			.all(|c| (c >= 'a' && c <= 'f') || (c >= '0' && c <= '9'));
+			.all(|c| ('a'..='f').contains(&c) || ('0'..='9').contains(&c));
 
 		if !is_valid_hex {
 			return Err("Invalid color".into());
@@ -121,20 +121,20 @@ impl TryFrom<&HashMap<&str, &str>> for Passport {
 	fn try_from(v: &HashMap<&str, &str>) -> Result<Self, Self::Error> {
 		let birth_year = v.get("byr").ok_or("Missing birth year")?.parse()?;
 
-		if birth_year < 1920 || birth_year > 2002 {
+		if !(1920..=2002).contains(&birth_year) {
 			return Err("Invalid birth year".into());
 		}
 
 		let issue_year = v.get("iyr").ok_or("Missing issue year")?.parse()?;
 
-		if issue_year < 2010 || issue_year > 2020 {
+		if !(2010..=2020).contains(&issue_year) {
 			return Err("Invalid issue year".into());
 		}
 
 		let expiration_year =
 			v.get("eyr").ok_or("Missing expiration year")?.parse()?;
 
-		if expiration_year < 2020 || expiration_year > 2030 {
+		if !(2020..=2030).contains(&expiration_year) {
 			return Err("Invalid expiration year".into());
 		}
 

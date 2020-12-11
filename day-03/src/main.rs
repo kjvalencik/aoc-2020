@@ -41,7 +41,7 @@ impl FromStr for Map {
 			.lines()
 			.map(|line| {
 				line.chars()
-					.map(|c| TryFrom::try_from(c))
+					.map(TryFrom::try_from)
 					.collect::<Result<Vec<_>, _>>()
 			})
 			.collect::<Result<Vec<_>, _>>()?;
@@ -60,7 +60,7 @@ fn part2(map: &Map) -> usize {
 	slopes
 		.into_iter()
 		.map(|slope| map.slope(slope))
-		.fold(1, |acc, x| acc * x)
+		.product()
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
