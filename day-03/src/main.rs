@@ -57,10 +57,7 @@ fn part1(map: &Map) -> usize {
 fn part2(map: &Map) -> usize {
 	let slopes = vec![(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)];
 
-	slopes
-		.into_iter()
-		.map(|slope| map.slope(slope))
-		.product()
+	slopes.into_iter().map(|slope| map.slope(slope)).product()
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
